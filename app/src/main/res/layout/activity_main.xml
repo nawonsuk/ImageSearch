@@ -3,7 +3,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
    <data>
       <import type="android.view.View" />
-      <variable name="model" type="com.mystory.imagesearch.view.viewmodel.MainActViewModel"/>
+      <variable name="model" type="com.mystory.imagesearch.presentation.viewmodel.MainActViewModel"/>
    </data>
    <androidx.constraintlayout.widget.ConstraintLayout
          android:layout_width="match_parent"
