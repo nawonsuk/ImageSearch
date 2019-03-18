@@ -9,16 +9,16 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content">
 
-            <ImageView
+         <ImageView
               android:id="@+id/iv_image"
               android:layout_width="match_parent"
-              android:layout_height="200dp"
+              android:layout_height="300dp"
               android:adjustViewBounds="true"
+              android:scaleType="fitCenter"
               app:loadImage="@{model.image_url}"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintTop_toTopOf="parent"
-              app:layout_constraintBottom_toBottomOf="parent"/>
+              app:layout_constraintTop_toTopOf="parent"/>
 
       </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

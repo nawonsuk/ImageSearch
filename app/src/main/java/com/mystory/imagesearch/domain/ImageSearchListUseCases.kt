@@ -1,5 +1,6 @@
 package com.mystory.imagesearch.domain
 
+import androidx.lifecycle.MutableLiveData
 import com.mystory.imagesearch.presentation.adapter.SearchDataSource
 
 /**
@@ -8,5 +9,5 @@ import com.mystory.imagesearch.presentation.adapter.SearchDataSource
  * @since 2019. 3. 14
  **/
 interface ImageSearchListUseCases {
-    fun getSearchListBy(query:String) : SearchDataSource
+    fun getSearchDataSource(query:String, state: MutableLiveData<Int>) : SearchDataSource
 }

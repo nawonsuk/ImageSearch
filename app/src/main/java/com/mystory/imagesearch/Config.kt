@@ -7,4 +7,9 @@ package com.mystory.imagesearch
 object Config {
     val BASE_URL = "https://dapi.kakao.com"
     val PAGE_SIZE = 30
+
+    const val STATE_SEARCH_NO_RESULT = 0
+    const val STATE_SEARCH_ERROR = 1
+    const val STATE_SEARCH_COMPLETE_NORMAL = 2
+    const val STATE_SEARCH_QUERY_EMPTY = 3
 }

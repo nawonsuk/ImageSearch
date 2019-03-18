@@ -4,6 +4,11 @@ import com.mystory.imagesearch.presentation.BaseActivity
 import dagger.Module
 import dagger.Provides
 
+/**
+ * ScreenModule
+ * @author wsseo
+ * @since 2019. 3. 14
+ **/
 @Module
 class ScreenModule(private val activity: BaseActivity) {
 
