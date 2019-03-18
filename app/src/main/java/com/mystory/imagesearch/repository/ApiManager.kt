@@ -1,5 +1,6 @@
 package com.mystory.imagesearch.repository
 
+import com.mystory.imagesearch.Config
 import com.mystory.imagesearch.data.searchData
 import rx.Observable
 
@@ -14,8 +15,8 @@ object ApiManager {
     /**
      * 이미지 검색 데이타를 요청한다.
      */
-    fun requestImageSearch(query:String): Observable<searchData> {
-        return apiService.requestImageSearch(query)
+    fun requestImageSearch(query:String, page:Int, size:Int= Config.PAGE_SIZE): Observable<searchData> {
+        return apiService.requestImageSearch(query, page, size)
     }
 
 }

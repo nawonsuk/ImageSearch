@@ -24,8 +24,8 @@ import android.widget.EditText
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat.getSystemService
-
-
+import com.mystory.imagesearch.Config
+import com.mystory.imagesearch.R
 
 
 /**
@@ -41,22 +41,19 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        model = ViewModelProviders.of(this,
-            object : ViewModelProvider.Factory {
-                override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                    return MainActViewModel(adapter) as T
-                }
-            }).get(MainActViewModel::class.java)
+        model = ViewModelProviders.of(this).get(MainActViewModel::class.java)
 
-        val binding = DataBindingUtil.setContentView(this@MainActivity, com.mystory.imagesearch.R.layout.activity_main) as ActivityMainBinding
+        val binding = DataBindingUtil.setContentView(this@MainActivity, R.layout.activity_main) as ActivityMainBinding
         binding.model = model
 
-        val config = PagedList.Config.Builder()
-            .setPageSize(10)
+        var config = PagedList.Config.Builder()
+            .setInitialLoadSizeHint(Config.PAGE_SIZE)
+            .setPageSize(Config.PAGE_SIZE)
+            .setPrefetchDistance(Config.PAGE_SIZE/2)
             .setEnablePlaceholders(true)
             .build()
 
-        val builder = RxPagedListBuilder<Int, document>(object: DataSource.Factory<Int, document>() {
+        var builder = RxPagedListBuilder<Int, document>(object: DataSource.Factory<Int, document>() {
             override fun create(): DataSource<Int, document> {
                 return searchDataSource
             }
@@ -68,19 +65,22 @@ class MainActivity : AppCompatActivity() {
         rv_search.adapter = adapter
         rv_search.layoutManager = staggeredGridLayoutManager
 
-        model?.toastMsg?.observe(this@MainActivity, Observer { text ->
+        model?.query?.observe(this@MainActivity, Observer { text ->
+            text?.let { searchTxt->
+                searchDataSource.searchQuery(searchTxt)
+                obversable?.subscribe {
+                    adapter.submitList(it)
+                    model?.progressShow?.set(false)
+                }
+            }
+        })
+        searchDataSource?.toastMsg?.observe(this@MainActivity, Observer { text ->
             text?.let {
                 Toast.makeText(applicationContext, text, Toast.LENGTH_LONG).show()
             }
         })
-
-        model?.searchLiveData?.observe(this@MainActivity, Observer { data ->
+        searchDataSource?.searchData?.observe(this@MainActivity, Observer { data ->
             hideKeyboard()
-            searchDataSource.setData(data)
-            obversable?.subscribe {
-                adapter.submitList(it)
-                model?.progressShow?.set(false)
-            }
         })
     }
 

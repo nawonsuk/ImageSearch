@@ -6,4 +6,5 @@ package com.mystory.imagesearch
 **/
 object Config {
     val BASE_URL = "https://dapi.kakao.com"
+    val PAGE_SIZE = 30
 }
