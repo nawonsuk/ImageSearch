@@ -1,1 +1,1 @@
-### ST unitas ImageSearch
+### ImageSearch
